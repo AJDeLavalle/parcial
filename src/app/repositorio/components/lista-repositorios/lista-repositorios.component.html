@@ -1,21 +1,23 @@
 <div class="container">
-  <h2 class="panel-title">// repositorios</h2>
-  @if (cargando) {
-    <div class="loading">cargando...</div>
-  }
+  <div class="toolbar">
+    <h2 class="panel-title">// repositorios</h2>
+    <div *ngIf="filtroActivo" class="filtro-banner">
+      <span>mostrando repos del usuario seleccionado</span>
+      <button type="button" class="ver-todos-btn" (click)="verTodos()">ver todos ✕</button>
+    </div>
+  </div>
+  <div *ngIf="cargando" class="loading">cargando...</div>
   <div class="grid">
-    @for (r of repositorios; track r.id) {
-      <div class="card" (click)="verDetalle(r.id)">
-        <div class="card-header">
-          <span class="repo-name">{{ r.name }}</span>
-          <span class="lang-badge">{{ r.language }}</span>
-        </div>
-        <p class="description">{{ r.description }}</p>
-        <div class="card-footer">
-          <span class="stars">⭐ {{ r.stars }}</span>
-          <span class="date">{{ r.createdAt | date:'mediumDate' }}</span>
-        </div>
+    <div *ngFor="let r of repositorios" class="card" (click)="verDetalle(r.id)">
+      <div class="card-header">
+        <span class="repo-name">{{ r.name }}</span>
+        <span class="lang-badge">{{ r.language }}</span>
       </div>
-    }
+      <p class="description">{{ r.description }}</p>
+      <div class="card-footer">
+        <span class="stars">⭐ {{ r.stars }}</span>
+        <span class="date">{{ r.createdAt | date:'mediumDate' }}</span>
+      </div>
+    </div>
   </div>
 </div>

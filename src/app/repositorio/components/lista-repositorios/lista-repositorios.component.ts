@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Repositorio } from '../../models/repositorio';
 import { RepositorioService } from '../../services/repositorio';
 
@@ -12,17 +12,34 @@ import { RepositorioService } from '../../services/repositorio';
 export class ListaRepositoriosComponent implements OnInit {
   repositorios: Repositorio[] = [];
   cargando = true;
+  filtroActivo = false;
 
-  constructor(private repositorioService: RepositorioService, private router: Router) {}
+  constructor(
+    private repositorioService: RepositorioService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    const idsParam = this.route.snapshot.queryParamMap.get('ids');
+    this.filtroActivo = !!idsParam;
+
     this.repositorioService.getRepositorios().subscribe(data => {
-      this.repositorios = data;
+      if (idsParam) {
+        const ids = idsParam.split(',').map(Number);
+        this.repositorios = data.filter(r => ids.includes(r.id));
+      } else {
+        this.repositorios = data;
+      }
       this.cargando = false;
     });
   }
 
   verDetalle(id: number): void {
     this.router.navigate(['/repositorios', id]);
+  }
+
+  verTodos(): void {
+    this.router.navigate(['/repositorios']);
   }
 }

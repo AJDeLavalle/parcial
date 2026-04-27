@@ -19,17 +19,19 @@
     </div>
   </div>
   <div class="repos-section">
-    <span class="label">// repositorios ({{ repos.length }})</span>
+    <div class="repos-header">
+      <span class="label">// repositorios ({{ repos.length }})</span>
+      <button *ngIf="repos.length > 0" type="button" class="ver-repos-btn" (click)="verReposUsuario()">
+        ver en lista →
+      </button>
+    </div>
     <div class="repos-list">
-      @for (r of repos; track r.id) {
-        <button type="button" class="repo-item" (click)="irARepo(r.id)">
-          <span class="repo-name">{{ r.name }}</span>
-          <span class="lang-badge">{{ r.language }}</span>
-          <span class="stars">⭐ {{ r.stars }}</span>
-        </button>
-      } @empty {
-        <span class="empty">sin repositorios</span>
-      }
+      <div *ngFor="let r of repos" class="repo-item" (click)="verReposUsuario()">
+        <span class="repo-name">{{ r.name }}</span>
+        <span class="lang-badge">{{ r.language }}</span>
+        <span class="stars">⭐ {{ r.stars }}</span>
+      </div>
+      <span *ngIf="repos.length === 0" class="empty">sin repositorios</span>
     </div>
   </div>
 </div>

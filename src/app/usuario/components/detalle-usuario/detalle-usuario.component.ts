@@ -24,7 +24,9 @@ export class DetalleUsuarioComponent implements OnChanges {
     });
   }
 
-  irARepo(id: number): void {
-    this.router.navigate(['/repositorios', id]);
+  verReposUsuario(): void {
+    this.router.navigate(['/repositorios'], {
+      queryParams: { ids: this.usuario.repoIds.join(',') }
+    });
   }
 }

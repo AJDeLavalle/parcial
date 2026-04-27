@@ -1,35 +1,30 @@
 <div class="layout">
   <div class="lista-panel">
     <h2 class="panel-title">// usuarios</h2>
-    @if (cargando) {
-      <div class="loading">cargando...</div>
-    }
+    <div *ngIf="cargando" class="loading">cargando...</div>
     <div class="lista">
-      @for (u of usuarios; track u.id) {
-        <div
-          class="card"
-          [class.selected]="usuarioSeleccionado?.id === u.id"
-          (click)="seleccionar(u)">
-          <img [src]="u.avatarUrl" [alt]="u.name" class="avatar" />
-          <div class="info">
-            <span class="username">@{{ u.username }}</span>
-            <span class="name">{{ u.name }}</span>
-            <span class="role-badge" [ngClass]="'role-' + u.role">{{ u.role }}</span>
-          </div>
+      <div
+        *ngFor="let u of usuarios"
+        class="card"
+        [class.selected]="usuarioSeleccionado?.id === u.id"
+        (click)="seleccionar(u)">
+        <img [src]="u.avatarUrl" [alt]="u.name" class="avatar" />
+        <div class="info">
+          <span class="username">@{{ u.username }}</span>
+          <span class="name">{{ u.name }}</span>
+          <span class="role-badge" [ngClass]="'role-' + u.role">{{ u.role }}</span>
         </div>
-      }
+      </div>
     </div>
   </div>
   <div class="detalle-panel">
-    @if (usuarioSeleccionado) {
-      <app-detalle-usuario
-        [usuario]="usuarioSeleccionado"
-        (cerrar)="cerrarDetalle()">
-      </app-detalle-usuario>
-    } @else {
-      <div class="placeholder">
-        <span>// selecciona un usuario para ver el detalle</span>
-      </div>
-    }
+    <app-detalle-usuario
+      *ngIf="usuarioSeleccionado"
+      [usuario]="usuarioSeleccionado"
+      (cerrar)="cerrarDetalle()">
+    </app-detalle-usuario>
+    <div *ngIf="!usuarioSeleccionado" class="placeholder">
+      <span>// selecciona un usuario para ver el detalle</span>
+    </div>
   </div>
 </div>
