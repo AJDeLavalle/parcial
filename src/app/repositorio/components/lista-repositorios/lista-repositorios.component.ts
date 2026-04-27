@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Repositorio } from '../../models/repositorio';
 import { RepositorioService } from '../../services/repositorio';
@@ -17,7 +17,8 @@ export class ListaRepositoriosComponent implements OnInit {
   constructor(
     private repositorioService: RepositorioService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -32,6 +33,7 @@ export class ListaRepositoriosComponent implements OnInit {
         this.repositorios = data;
       }
       this.cargando = false;
+      this.cdr.detectChanges();
     });
   }
 

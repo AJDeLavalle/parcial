@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { Usuario } from '../../models/usuario';
 import { Repositorio } from '../../../repositorio/models/repositorio';
@@ -16,11 +16,16 @@ export class DetalleUsuarioComponent implements OnChanges {
 
   repos: Repositorio[] = [];
 
-  constructor(private repositorioService: RepositorioService, private router: Router) {}
+  constructor(
+    private repositorioService: RepositorioService,
+    private router: Router,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnChanges(): void {
     this.repositorioService.getRepositorios().subscribe(all => {
       this.repos = all.filter(r => this.usuario.repoIds.includes(r.id));
+      this.cdr.detectChanges();
     });
   }
 

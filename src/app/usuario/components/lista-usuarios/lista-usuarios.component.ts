@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Usuario } from '../../models/usuario';
 import { UsuarioService } from '../../services/usuario';
 
@@ -13,12 +13,13 @@ export class ListaUsuariosComponent implements OnInit {
   usuarioSeleccionado: Usuario | null = null;
   cargando = true;
 
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     this.usuarioService.getUsuarios().subscribe(data => {
       this.usuarios = data;
       this.cargando = false;
+      this.cdr.detectChanges();
     });
   }
 
