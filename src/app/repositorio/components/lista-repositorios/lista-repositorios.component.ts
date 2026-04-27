@@ -22,18 +22,20 @@ export class ListaRepositoriosComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const idsParam = this.route.snapshot.queryParamMap.get('ids');
-    this.filtroActivo = !!idsParam;
-
     this.repositorioService.getRepositorios().subscribe(data => {
-      if (idsParam) {
-        const ids = idsParam.split(',').map(Number);
-        this.repositorios = data.filter(r => ids.includes(r.id));
-      } else {
-        this.repositorios = data;
-      }
-      this.cargando = false;
-      this.cdr.detectChanges();
+      this.route.queryParamMap.subscribe(params => {
+        const idsParam = params.get('ids');
+        this.filtroActivo = !!idsParam;
+
+        if (idsParam) {
+          const ids = idsParam.split(',').map(Number);
+          this.repositorios = data.filter(r => ids.includes(r.id));
+        } else {
+          this.repositorios = data;
+        }
+        this.cargando = false;
+        this.cdr.detectChanges();
+      });
     });
   }
 
