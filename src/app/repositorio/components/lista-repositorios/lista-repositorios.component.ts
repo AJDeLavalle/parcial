@@ -11,12 +11,14 @@ import { RepositorioService } from '../../services/repositorio';
 })
 export class ListaRepositoriosComponent implements OnInit {
   repositorios: Repositorio[] = [];
+  cargando = true;
 
   constructor(private repositorioService: RepositorioService, private router: Router) {}
 
   ngOnInit(): void {
     this.repositorioService.getRepositorios().subscribe(data => {
       this.repositorios = data;
+      this.cargando = false;
     });
   }
 

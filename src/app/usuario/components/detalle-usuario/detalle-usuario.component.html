@@ -1,5 +1,5 @@
 <div class="detalle-card">
-  <button class="close-btn" (click)="cerrar.emit()">✕ cerrar</button>
+  <button type="button" class="close-btn" (click)="cerrar.emit()">✕ cerrar</button>
   <div class="header">
     <img [src]="usuario.avatarUrl" [alt]="usuario.name" class="avatar" />
     <div class="header-info">
@@ -17,13 +17,19 @@
       <span class="label">// location</span>
       <span class="value">{{ usuario.location }}</span>
     </div>
-    <div class="field">
-      <span class="label">// repositorios</span>
-      <span class="value">{{ usuario.repoIds.length }} repos</span>
-    </div>
-    <div class="field">
-      <span class="label">// repo ids</span>
-      <span class="value repo-ids">{{ usuario.repoIds.join(', ') }}</span>
+  </div>
+  <div class="repos-section">
+    <span class="label">// repositorios ({{ repos.length }})</span>
+    <div class="repos-list">
+      @for (r of repos; track r.id) {
+        <button type="button" class="repo-item" (click)="irARepo(r.id)">
+          <span class="repo-name">{{ r.name }}</span>
+          <span class="lang-badge">{{ r.language }}</span>
+          <span class="stars">⭐ {{ r.stars }}</span>
+        </button>
+      } @empty {
+        <span class="empty">sin repositorios</span>
+      }
     </div>
   </div>
 </div>

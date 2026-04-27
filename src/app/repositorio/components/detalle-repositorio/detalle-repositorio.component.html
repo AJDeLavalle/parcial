@@ -1,6 +1,6 @@
 <div class="container">
-  <button class="back-btn" (click)="volver()">← volver</button>
-  <ng-container *ngIf="repositorio; else noRepo">
+  <button type="button" class="back-btn" (click)="volver()">← volver</button>
+  @if (repositorio) {
     <div class="detalle-card">
       <div class="card-header">
         <h2 class="repo-name">{{ repositorio.name }}</h2>
@@ -22,8 +22,7 @@
         </div>
       </div>
     </div>
-  </ng-container>
-  <ng-template #noRepo>
+  } @else {
     <p class="not-found">// repositorio no encontrado</p>
-  </ng-template>
+  }
 </div>

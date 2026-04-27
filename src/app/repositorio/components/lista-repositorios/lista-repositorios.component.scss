@@ -10,6 +10,19 @@
   font-weight: 700;
 }
 
+.loading {
+  font-size: 0.75rem;
+  color: #8b949e;
+  padding: 0.5rem 0;
+  margin-bottom: 0.75rem;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

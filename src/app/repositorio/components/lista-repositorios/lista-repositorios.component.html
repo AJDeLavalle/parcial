@@ -1,16 +1,21 @@
 <div class="container">
   <h2 class="panel-title">// repositorios</h2>
+  @if (cargando) {
+    <div class="loading">cargando...</div>
+  }
   <div class="grid">
-    <div *ngFor="let r of repositorios" class="card" (click)="verDetalle(r.id)">
-      <div class="card-header">
-        <span class="repo-name">{{ r.name }}</span>
-        <span class="lang-badge">{{ r.language }}</span>
+    @for (r of repositorios; track r.id) {
+      <div class="card" (click)="verDetalle(r.id)">
+        <div class="card-header">
+          <span class="repo-name">{{ r.name }}</span>
+          <span class="lang-badge">{{ r.language }}</span>
+        </div>
+        <p class="description">{{ r.description }}</p>
+        <div class="card-footer">
+          <span class="stars">⭐ {{ r.stars }}</span>
+          <span class="date">{{ r.createdAt | date:'mediumDate' }}</span>
+        </div>
       </div>
-      <p class="description">{{ r.description }}</p>
-      <div class="card-footer">
-        <span class="stars">⭐ {{ r.stars }}</span>
-        <span class="date">{{ r.createdAt | date:'mediumDate' }}</span>
-      </div>
-    </div>
+    }
   </div>
 </div>

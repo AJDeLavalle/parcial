@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { Repositorio } from '../../models/repositorio';
 import { RepositorioService } from '../../services/repositorio';
 
@@ -15,7 +16,7 @@ export class DetalleRepositorioComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private repositorioService: RepositorioService,
-    private router: Router
+    private location: Location
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +27,6 @@ export class DetalleRepositorioComponent implements OnInit {
   }
 
   volver(): void {
-    this.router.navigate(['/repositorios']);
+    this.location.back();
   }
 }

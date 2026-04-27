@@ -1,5 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario } from '../../models/usuario';
+import { Repositorio } from '../../../repositorio/models/repositorio';
+import { RepositorioService } from '../../../repositorio/services/repositorio';
 
 @Component({
   selector: 'app-detalle-usuario',
@@ -7,7 +10,21 @@ import { Usuario } from '../../models/usuario';
   templateUrl: './detalle-usuario.component.html',
   styleUrls: ['./detalle-usuario.component.scss']
 })
-export class DetalleUsuarioComponent {
+export class DetalleUsuarioComponent implements OnChanges {
   @Input() usuario!: Usuario;
   @Output() cerrar = new EventEmitter<void>();
+
+  repos: Repositorio[] = [];
+
+  constructor(private repositorioService: RepositorioService, private router: Router) {}
+
+  ngOnChanges(): void {
+    this.repositorioService.getRepositorios().subscribe(all => {
+      this.repos = all.filter(r => this.usuario.repoIds.includes(r.id));
+    });
+  }
+
+  irARepo(id: number): void {
+    this.router.navigate(['/repositorios', id]);
+  }
 }
