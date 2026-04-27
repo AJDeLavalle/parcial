@@ -1,0 +1,29 @@
+<div class="container">
+  <button class="back-btn" (click)="volver()">← volver</button>
+  <ng-container *ngIf="repositorio; else noRepo">
+    <div class="detalle-card">
+      <div class="card-header">
+        <h2 class="repo-name">{{ repositorio.name }}</h2>
+        <span class="lang-badge">{{ repositorio.language }}</span>
+      </div>
+      <p class="description">{{ repositorio.description }}</p>
+      <div class="fields">
+        <div class="field">
+          <span class="label">// estrellas</span>
+          <span class="value">⭐ {{ repositorio.stars }}</span>
+        </div>
+        <div class="field">
+          <span class="label">// creado</span>
+          <span class="value">{{ repositorio.createdAt | date:'mediumDate' }}</span>
+        </div>
+        <div class="field">
+          <span class="label">// owner id</span>
+          <span class="value">{{ repositorio.ownerId }}</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-template #noRepo>
+    <p class="not-found">// repositorio no encontrado</p>
+  </ng-template>
+</div>

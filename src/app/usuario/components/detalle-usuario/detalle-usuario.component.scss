@@ -1,0 +1,88 @@
+.detalle-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  max-width: 600px;
+}
+
+.close-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: #8b949e;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  transition: border-color .15s, color .15s;
+
+  &:hover {
+    border-color: #f85149;
+    color: #f85149;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  object-fit: cover;
+}
+
+.header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #e6edf3;
+}
+
+.username {
+  font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
+  font-size: 0.65rem;
+  color: var(--accent-2);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.value {
+  font-size: 0.85rem;
+  color: #e6edf3;
+
+  &.repo-ids {
+    color: #8b949e;
+    font-size: 0.75rem;
+  }
+}
