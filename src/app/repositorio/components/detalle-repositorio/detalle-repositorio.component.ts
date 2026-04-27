@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Repositorio } from '../../models/repositorio';
@@ -16,13 +16,15 @@ export class DetalleRepositorioComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private repositorioService: RepositorioService,
-    private location: Location
+    private location: Location,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.repositorioService.getRepositorios().subscribe(repos => {
       this.repositorio = repos.find(r => r.id === id) ?? null;
+      this.cdr.detectChanges();
     });
   }
 
