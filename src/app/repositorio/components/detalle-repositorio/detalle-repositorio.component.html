@@ -1,26 +1,38 @@
-<div class="container">
-  <button type="button" class="back-btn" (click)="volver()">← volver</button>
+<div class="page">
+  <div class="page-header">
+    <button type="button" class="back-btn" (click)="volver()">← back</button>
+    <span class="page-tag">REPOSITORY_DETAIL</span>
+  </div>
+
   <div *ngIf="repositorio; else noRepo" class="detalle-card">
     <div class="card-header">
-      <h2 class="repo-name">{{ repositorio.name }}</h2>
-      <span class="lang-badge">{{ repositorio.language }}</span>
+      <div class="header-left">
+        <h2 class="repo-name">{{ repositorio.name }}</h2>
+        <p class="description">{{ repositorio.description }}</p>
+      </div>
+      <span class="lang-badge" [ngClass]="'lang-' + repositorio.language.toLowerCase()">
+        {{ repositorio.language }}
+      </span>
     </div>
-    <p class="description">{{ repositorio.description }}</p>
-    <div class="fields">
-      <div class="field">
-        <span class="label">// estrellas</span>
-        <span class="value">⭐ {{ repositorio.stars }}</span>
+
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-value">⭐ {{ repositorio.stars }}</span>
+        <span class="stat-label">STARS</span>
       </div>
-      <div class="field">
-        <span class="label">// creado</span>
-        <span class="value">{{ repositorio.createdAt | date:'mediumDate' }}</span>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">{{ repositorio.createdAt | date:'MMM d, y' }}</span>
+        <span class="stat-label">CREATED</span>
       </div>
-      <div class="field">
-        <span class="label">// owner id</span>
-        <span class="value">{{ repositorio.ownerId }}</span>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-value">#{{ repositorio.ownerId }}</span>
+        <span class="stat-label">OWNER_ID</span>
       </div>
     </div>
   </div>
+
   <ng-template #noRepo>
     <p class="not-found">// repositorio no encontrado</p>
   </ng-template>

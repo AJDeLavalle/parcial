@@ -1,37 +1,121 @@
-<div class="detalle-card">
-  <button type="button" class="close-btn" (click)="cerrar.emit()">✕ cerrar</button>
-  <div class="header">
-    <img [src]="usuario.avatarUrl" [alt]="usuario.name" class="avatar" />
-    <div class="header-info">
-      <h2 class="name">{{ usuario.name }}</h2>
-      <span class="username">@{{ usuario.username }}</span>
-      <span class="role-badge" [ngClass]="'role-' + usuario.role">{{ usuario.role }}</span>
-    </div>
+<div class="panel">
+
+  <div class="panel-topbar">
+    <span class="panel-tag">USER_PROFILE</span>
+    <button type="button" class="close-btn" (click)="cerrar.emit()">✕</button>
   </div>
-  <div class="fields">
-    <div class="field">
-      <span class="label">// email</span>
-      <span class="value">{{ usuario.email }}</span>
+
+  <div class="profile-header">
+    <div class="avatar-wrap">
+      <img [src]="usuario.avatarUrl" [alt]="usuario.name" class="avatar" />
+      <span class="avatar-status"></span>
     </div>
-    <div class="field">
-      <span class="label">// location</span>
-      <span class="value">{{ usuario.location }}</span>
-    </div>
-  </div>
-  <div class="repos-section">
-    <div class="repos-header">
-      <span class="label">// repositorios ({{ repos.length }})</span>
-      <button *ngIf="repos.length > 0" type="button" class="ver-repos-btn" (click)="verReposUsuario()">
-        ver en lista →
-      </button>
-    </div>
-    <div class="repos-list">
-      <div *ngFor="let r of repos" class="repo-item" (click)="verReposUsuario()">
-        <span class="repo-name">{{ r.name }}</span>
-        <span class="lang-badge">{{ r.language }}</span>
-        <span class="stars">⭐ {{ r.stars }}</span>
+    <div class="profile-meta">
+      <h2 class="display-name">{{ usuario.username }}</h2>
+      <span class="profile-title">{{ usuario.name }} / {{ usuario.role }}</span>
+      <span class="profile-location">◎ {{ usuario.location }}</span>
+      <div class="profile-actions">
+        <button type="button" class="action-btn primary">FOLLOW_USER</button>
+        <button type="button" class="action-btn">EXPORT_JSON</button>
       </div>
-      <span *ngIf="repos.length === 0" class="empty">sin repositorios</span>
     </div>
   </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-value">{{ usuario.repoIds.length }}</span>
+      <span class="stat-label">REPOS</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-value">{{ totalStars }}</span>
+      <span class="stat-label">STARS</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-value">{{ repos.length }}</span>
+      <span class="stat-label">ACTIVOS</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <span class="stat-value">#{{ usuario.id }}</span>
+      <span class="stat-label">USER_ID</span>
+    </div>
+  </div>
+
+  <div class="content-grid">
+
+    <div class="col-main">
+      <div class="section">
+        <div class="section-title">// PROFILE_BIO</div>
+        <ul class="bio-list">
+          <li>&gt; {{ usuario.role | uppercase }} @ git_explorer</li>
+          <li>&gt; based in {{ usuario.location }}</li>
+          <li>&gt; contact: {{ usuario.email }}</li>
+          <li *ngIf="repos.length > 0">&gt; maintainer of {{ repos.length }} active project(s)</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <div class="section-title">// COMMIT_HISTORY</div>
+        <div class="heatmap">
+          <div *ngFor="let cell of heatmapCells"
+               class="heatmap-cell"
+               [style.opacity]="cell"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-side">
+      <div class="section" *ngIf="techStack.length > 0">
+        <div class="section-title">// TECH_STACK</div>
+        <div class="tech-list">
+          <span *ngFor="let lang of techStack"
+                class="lang-badge"
+                [ngClass]="'lang-' + lang.toLowerCase()">{{ lang }}</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">// SYSTEM_LINKS</div>
+        <div class="links-list">
+          <div class="link-item">
+            <span class="link-dot"></span>
+            <span class="link-text">{{ usuario.email }}</span>
+          </div>
+          <div class="link-item">
+            <span class="link-dot accent"></span>
+            <span class="link-text">{{ usuario.location }}</span>
+          </div>
+          <div class="link-item">
+            <span class="link-dot green"></span>
+            <span class="link-text">@{{ usuario.username }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section" *ngIf="repos.length > 0">
+    <div class="section-title">
+      // ACTIVE_PROJECTS
+      <button type="button" class="ver-repos-btn" (click)="verReposUsuario()">ver lista →</button>
+    </div>
+    <div class="projects-table">
+      <div class="table-header">
+        <span>PROJECT_NAME</span>
+        <span>LANGUAGE</span>
+        <span>STARS</span>
+        <span>CREATED</span>
+      </div>
+      <div *ngFor="let r of repos" class="table-row" (click)="verReposUsuario()">
+        <span class="proj-name">{{ r.name }}</span>
+        <span class="lang-badge" [ngClass]="'lang-' + r.language.toLowerCase()">{{ r.language }}</span>
+        <span class="proj-stars">⭐ {{ r.stars }}</span>
+        <span class="proj-date">{{ r.createdAt | date:'MMM y' }}</span>
+      </div>
+    </div>
+  </div>
+
 </div>

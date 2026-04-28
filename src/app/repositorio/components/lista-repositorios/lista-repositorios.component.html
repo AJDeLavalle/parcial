@@ -1,22 +1,28 @@
-<div class="container">
-  <div class="toolbar">
-    <h2 class="panel-title">// repositorios</h2>
-    <div *ngIf="filtroActivo" class="filtro-banner">
-      <span>mostrando repos del usuario seleccionado</span>
-      <button type="button" class="ver-todos-btn" (click)="verTodos()">ver todos ✕</button>
+<div class="page">
+  <div class="page-header">
+    <div class="header-left">
+      <h1 class="title">Repositories</h1>
+      <p class="subtitle" *ngIf="!filtroActivo">Managing {{ repositorios.length }} active projects</p>
+      <p class="subtitle filtered" *ngIf="filtroActivo">
+        Mostrando repos del usuario seleccionado
+        <button type="button" class="clear-btn" (click)="verTodos()">✕ ver todos</button>
+      </p>
     </div>
   </div>
+
   <div *ngIf="cargando" class="loading">cargando...</div>
+
   <div class="grid">
     <div *ngFor="let r of repositorios" class="card" (click)="verDetalle(r.id)">
-      <div class="card-header">
+      <div class="card-top">
         <span class="repo-name">{{ r.name }}</span>
-        <span class="lang-badge">{{ r.language }}</span>
+        <span class="lang-badge" [ngClass]="'lang-' + r.language.toLowerCase()">{{ r.language }}</span>
       </div>
       <p class="description">{{ r.description }}</p>
       <div class="card-footer">
-        <span class="stars">⭐ {{ r.stars }}</span>
-        <span class="date">{{ r.createdAt | date:'mediumDate' }}</span>
+        <span class="meta-item">⭐ {{ r.stars }}</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-item">{{ r.createdAt | date:'MMM d, y' }}</span>
       </div>
     </div>
   </div>

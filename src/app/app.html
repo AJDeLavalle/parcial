@@ -1,8 +1,39 @@
-<nav class="navbar">
-  <span class="brand">// github explorer</span>
-  <div class="nav-links">
-    <a routerLink="/usuarios" routerLinkActive="active">usuarios</a>
-    <a routerLink="/repositorios" routerLinkActive="active">repositorios</a>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-name">GIT_EXPLORER</span>
+      <span class="brand-version">v2.1.0-stable</span>
+    </div>
+    <div class="nav-label">NAVIGATION</div>
+    <nav class="sidebar-nav">
+      <a routerLink="/usuarios" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">◈</span> Exploration
+      </a>
+      <a routerLink="/repositorios" routerLinkActive="active" class="nav-item">
+        <span class="nav-icon">⊞</span> Repositories
+      </a>
+      <a class="nav-item disabled"><span class="nav-icon">◎</span> Organizations</a>
+      <a class="nav-item disabled"><span class="nav-icon">◷</span> Activity</a>
+    </nav>
+    <div class="sidebar-footer">
+      <a class="nav-item"><span class="nav-icon">⊙</span> Docs</a>
+      <a class="nav-item"><span class="nav-icon">⏻</span> Logout</a>
+    </div>
+  </aside>
+  <div class="main-wrapper">
+    <header class="topbar">
+      <div class="topbar-search">
+        <span class="search-icon">⌕</span>
+        <input type="text" placeholder="search_repository..." class="search-input" />
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" title="Notifications">🔔</button>
+        <button class="icon-btn" title="Settings">⚙</button>
+        <div class="avatar-dot"></div>
+      </div>
+    </header>
+    <main class="content">
+      <router-outlet />
+    </main>
   </div>
-</nav>
-<router-outlet />
+</div>

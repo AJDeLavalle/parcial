@@ -1,30 +1,45 @@
-<div class="layout">
-  <div class="lista-panel">
-    <h2 class="panel-title">// usuarios</h2>
-    <div *ngIf="cargando" class="loading">cargando...</div>
-    <div class="lista">
-      <div
-        *ngFor="let u of usuarios"
-        class="card"
-        [class.selected]="usuarioSeleccionado?.id === u.id"
-        (click)="seleccionar(u)">
-        <img [src]="u.avatarUrl" [alt]="u.name" class="avatar" />
-        <div class="info">
-          <span class="username">@{{ u.username }}</span>
-          <span class="name">{{ u.name }}</span>
+<div class="page">
+  <div class="page-header">
+    <div class="page-title">
+      <span class="title-prefix">//</span>
+      <h1 class="title">USERS.log</h1>
+      <span class="title-count" *ngIf="!cargando">[{{ usuarios.length }} registros]</span>
+    </div>
+    <span class="header-tag">EXPLORATION_MODE</span>
+  </div>
+
+  <div class="layout">
+    <div class="lista-panel">
+      <div *ngIf="cargando" class="loading">inicializando...</div>
+      <div class="lista">
+        <div
+          *ngFor="let u of usuarios"
+          class="user-card"
+          [class.selected]="usuarioSeleccionado?.id === u.id"
+          (click)="seleccionar(u)">
+          <img [src]="u.avatarUrl" [alt]="u.name" class="avatar" />
+          <div class="user-info">
+            <span class="username">{{ u.username }}</span>
+            <span class="fullname">{{ u.name }}</span>
+            <span class="location">{{ u.location }}</span>
+          </div>
           <span class="role-badge" [ngClass]="'role-' + u.role">{{ u.role }}</span>
         </div>
       </div>
     </div>
-  </div>
-  <div class="detalle-panel">
-    <app-detalle-usuario
-      *ngIf="usuarioSeleccionado"
-      [usuario]="usuarioSeleccionado"
-      (cerrar)="cerrarDetalle()">
-    </app-detalle-usuario>
-    <div *ngIf="!usuarioSeleccionado" class="placeholder">
-      <span>// selecciona un usuario para ver el detalle</span>
+
+    <div class="detalle-panel">
+      <app-detalle-usuario
+        *ngIf="usuarioSeleccionado"
+        [usuario]="usuarioSeleccionado"
+        (cerrar)="cerrarDetalle()">
+      </app-detalle-usuario>
+      <div *ngIf="!usuarioSeleccionado" class="placeholder">
+        <div class="placeholder-inner">
+          <span class="placeholder-icon">◈</span>
+          <span class="placeholder-text">// selecciona un usuario<br>para ver su perfil</span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
