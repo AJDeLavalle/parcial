@@ -15,8 +15,14 @@
       <span class="profile-title">{{ usuario.name }} / {{ usuario.role }}</span>
       <span class="profile-location">◎ {{ usuario.location }}</span>
       <div class="profile-actions">
-        <button type="button" class="action-btn primary">FOLLOW_USER</button>
-        <button type="button" class="action-btn">EXPORT_JSON</button>
+        <button type="button"
+                class="action-btn"
+                [class.primary]="!siguiendo"
+                [class.following]="siguiendo"
+                (click)="toggleFollow()">
+          {{ siguiendo ? 'UNFOLLOW ✓' : 'FOLLOW_USER' }}
+        </button>
+        <button type="button" class="action-btn" (click)="exportJson()">EXPORT_JSON</button>
       </div>
     </div>
   </div>

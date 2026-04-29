@@ -133,6 +133,14 @@
 
     &:hover { background: rgba(88,166,255,.2); }
   }
+
+  &.following {
+    background: rgba(63,185,80,.12);
+    border-color: rgba(63,185,80,.4);
+    color: var(--accent-2);
+
+    &:hover { background: rgba(248,81,73,.1); border-color: rgba(248,81,73,.4); color: #f85149; }
+  }
 }
 
 /* ── Stats ── */
